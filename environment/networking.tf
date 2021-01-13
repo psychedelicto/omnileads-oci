@@ -1,28 +1,45 @@
-module "vcn" {
-  source  = "oracle-terraform-modules/vcn/oci"
-  version = "1.0.3"
+resource "oci_core_vcn" "hipotecario_vcn" {
+    compartment_id  = oci_identity_compartment.tf-compartment.compartment_id
+    cidr_blocks     = [var.vcn_cidr]
+    display_name    = var.vcn_display_name
+    dns_label       = var.vcn_dns_label
+}
 
-  # provider parameters
-  region = var.region
+resource "oci_core_internet_gateway" "test_internet_gateway" {
+    compartment_id  = oci_identity_compartment.tf-compartment.compartment_id
+    vcn_id          = oci_core_vcn.hipotecario_vcn.id
+    enabled         = var.internet_gateway_enabled
+    display_name    = var.internet_gateway_display_name
+}
 
-  # general oci parameters
-  compartment_id = oci_identity_compartment.tf-compartment.compartment_id
-  label_prefix   = "fts"
 
-  # vcn parameters
-  internet_gateway_enabled = true
-  nat_gateway_enabled      = true
-  #service_gateway_enabled  = true
-  #tags                     = var.tags
-  vcn_cidr                 = var.vcn_cidr
-  vcn_dns_label            = var.vcn_dns_label
-  vcn_name                 = var.vcn_name
+resource "oci_core_nat_gateway" "test_nat_gateway" {
+    compartment_id  = oci_identity_compartment.tf-compartment.compartment_id
+    vcn_id          = oci_core_vcn.hipotecario_vcn.id
+    display_name    = var.nat_gateway_display_name
+}
+
+resource "oci_core_route_table" "test_route_table" {
+    compartment_id        = oci_identity_compartment.tf-compartment.compartment_id
+    vcn_id                = oci_core_vcn.hipotecario_vcn.id
+    display_name          = "all traffic"
+    route_rules {
+        network_entity_id   = oci_core_internet_gateway.test_internet_gateway.id
+        destination         = "0.0.0.0/0"
+        destination_type    = "CIDR_BLOCK"
+    }
 }
 
 resource "oci_core_subnet" "public_A_subnet" {
-    #Required
-    cidr_block = var.subnet_cidr_block
-    compartment_id = oci_identity_compartment.tf-compartment.compartment_id
-    vcn_id = module.vcn.vcn_id
+    cidr_block        = var.subnet_public_cidr_block
+    compartment_id    = oci_identity_compartment.tf-compartment.compartment_id
+    vcn_id            = oci_core_vcn.hipotecario_vcn.id
+    route_table_id    = oci_core_route_table.test_route_table.id
+}
 
+resource "oci_core_subnet" "private_A_subnet" {
+    cidr_block                  = var.subnet_private_cidr_block
+    compartment_id              = oci_identity_compartment.tf-compartment.compartment_id
+    vcn_id                      = oci_core_vcn.hipotecario_vcn.id
+    prohibit_public_ip_on_vnic  = true
 }
