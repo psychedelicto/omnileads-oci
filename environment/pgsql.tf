@@ -1,5 +1,14 @@
 # POSTGRESQL Instance -- POSTGRESQL Instance  -- POSTGRESQL Instance  -- POSTGRESQL Instance
 # POSTGRESQL Instance -- POSTGRESQL Instance  -- POSTGRESQL Instance  -- POSTGRESQL Instance
+data "template_file" "pgsql" {
+  template = file(var.postgresql_user_data)
+
+  vars = {
+    private_subnet              = var.vcn_cidr
+    postgres_password           = var.pg_password
+    }
+}
+
 module "postgresql_instance" {
     source                      = "../../oci-terraform-modules/instance"
 
@@ -11,15 +20,14 @@ module "postgresql_instance" {
     subnet_id                   = oci_core_subnet.private_A_subnet.id
     assign_public_ip            = false
     ssh_private_key             = var.ssh_private_key
-    user_data                   = base64encode(file(var.postgresql_user_data))
+    user_data                   = base64encode(data.template_file.pgsql.rendered)
     os_ocid                     = var.centos_ocid
 }
 
 
-
 resource "oci_core_network_security_group" "postgresql_network_security_group" {
-    compartment_id         = oci_identity_compartment.tf-compartment.compartment_id
-    vcn_id                 = oci_core_vcn.hipotecario_vcn.id
+    compartment_id              = oci_identity_compartment.tf-compartment.compartment_id
+    vcn_id                      = oci_core_vcn.hipotecario_vcn.id
 }
 
 resource "oci_core_network_security_group_security_rule" "postgresql_sg_ssh_rules" {

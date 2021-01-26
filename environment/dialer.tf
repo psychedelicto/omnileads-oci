@@ -1,5 +1,18 @@
 # dialer Instance -- dialer Instance  -- dialer Instance  -- dialer Instance
 # dialer Instance -- dialer Instance  -- dialer Instance  -- dialer Instance
+
+
+data "template_file" "dialer" {
+  template = file(var.dialer_user_data)
+
+  vars = {
+    mysql_host                = module.mariadb_instance.private-ip-for-compute-instance
+    mysql_database            = var.dialer_database
+    mysql_username            = var.dialer_database_username
+    mysql_password            = var.dialer_database_password
+    }
+}
+
 module "dialer_instance" {
     source                      = "../../oci-terraform-modules/instance"
 
@@ -11,14 +24,8 @@ module "dialer_instance" {
     subnet_id                   = oci_core_subnet.public_A_subnet.id
     assign_public_ip            = true
     ssh_private_key             = var.ssh_private_key
-    user_data                   = base64encode(file(var.dialer_user_data),
-        {
-        #mysql_host                = module.mariadb_instance.private_ip
-        mysql_database            = var.dialer_database
-        mysql_username            = var.dialer_database_username
-        mysql_password            = var.dialer_database_password
-        })
     os_ocid                     = var.centos_ocid
+    user_data                   = base64encode(data.template_file.dialer.rendered)
 }
 
 resource "oci_core_network_security_group" "dialer_network_security_group" {

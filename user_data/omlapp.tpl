@@ -63,9 +63,9 @@ echo "******************** digitalocean requiere SSL to connect PGSQL **********
 echo "SSLMode       = require" >> /etc/odbc.ini
 
 
-echo "******************************* NFS fstab *************************************"
-echo "******************************* NFS fstab *************************************"
-echo ""${nfs_recordings_ip}":$HOST_DIR    $HOST_DIR   nfs auto,nofail,noatime,nolock,intr,tcp,actimeo=1800 0 0" >> /etc/fstab
+#echo "******************************* NFS fstab *************************************"
+#echo "******************************* NFS fstab *************************************"
+#echo ""${nfs_recordings_ip}":$HOST_DIR    $HOST_DIR   nfs auto,nofail,noatime,nolock,intr,tcp,actimeo=1800 0 0" >> /etc/fstab
 
 
 echo "***************************** Instalando sngrep ***************************************"
@@ -123,10 +123,10 @@ echo "****************************** [asterisk] Seteando ownership de archivos *
 chown -R omnileads.omnileads /mnt/ramdisk /opt/omnileads/bin/mover_audios.sh
 chmod +x /opt/omnileads/bin/mover_audios.sh
 
-echo "****************************** mount NFS for asign omnileads owner ************************************"
-echo "****************************** mount NFS for asign omnileads owner ************************************"
-mount -t nfs "${nfs_recordings_ip}":$HOST_DIR $HOST_DIR
-chown omnileads.omnileads -R $HOST_DIR
+#echo "****************************** mount NFS for asign omnileads owner ************************************"
+#echo "****************************** mount NFS for asign omnileads owner ************************************"
+#mount -t nfs "${nfs_recordings_ip}":$HOST_DIR $HOST_DIR
+#chown omnileads.omnileads -R $HOST_DIR
 
 echo "******************************** [asterisk] Tercero: seteando el cron para el movimiento de grabaciones *************************************************"
 echo "******************************** [asterisk] Tercero: seteando el cron para el movimiento de grabaciones *************************************************"

@@ -1,4 +1,4 @@
-#!/bin/bash
+<!-- #!/bin/bash
 
 HOST_DIR=/opt/omnileads/asterisk/var/spool/asterisk/monitor
 PRIVATE_IPV4=$(curl -s http://169.254.169.254/metadata/v1/interfaces/private/0/ipv4/address)
@@ -17,4 +17,4 @@ echo "$HOST_DIR "${nfs_clients}"(rw,sync,no_root_squash,no_subtree_check)" >> /e
 
 systemctl restart nfs-kernel-server
 
-reboot
+reboot -->

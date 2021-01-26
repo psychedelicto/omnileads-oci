@@ -102,6 +102,7 @@ variable "postgresql_instance_shape" {}
 variable "postgresql_instance_availability_domain" {}
 variable "postgresql_user_data" {}
 
+
 variable "postgresql_security_group_ssh_source" {}
 variable "postgresql_security_group_ssh_description" {
   default = "nsg for ssh"
