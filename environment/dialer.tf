@@ -6,7 +6,7 @@ data "template_file" "dialer" {
   template = file(var.dialer_user_data)
 
   vars = {
-    mysql_host                = module.mariadb_instance.private-ip-for-compute-instance
+    mysql_host                = module.mariadb_instance.ipv4_address_private
     mysql_database            = var.dialer_database
     mysql_username            = var.dialer_database_username
     mysql_password            = var.dialer_database_password

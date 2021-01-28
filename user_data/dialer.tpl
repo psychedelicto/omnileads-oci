@@ -1,12 +1,19 @@
 #!/bin/bash
 
-yum install wget -y
+echo "******************** prereq selinux and firewalld ***************************"
+echo "******************** prereq selinux and firewalld ***************************"
+sed -i 's/^SELINUX=.*/SELINUX=disabled/' /etc/sysconfig/selinux
+sed -i 's/^SELINUX=.*/SELINUX=disabled/' /etc/selinux/config
+systemctl disable firewalld
 
+echo "******************** yum install wombat ***************************"
+echo "******************** yum install wombat ***************************"
+yum install wget -y
 wget -P /etc/yum.repos.d http://yum.loway.ch/loway.repo
 yum install wombat -y
 
-echo "Ejecutando tareas postinstall para que wombat tenga acceso a mysql RDS"
-
+echo "******************** postinstall configuration ***************************"
+echo "******************** postinstall configuration ***************************"
 cat > /usr/local/queuemetrics/tomcat/webapps/wombat/WEB-INF/tpf.properties <<EOF
 #LICENZA_ARCHITETTURA=....
 #START_TRANSACTION=qm_start

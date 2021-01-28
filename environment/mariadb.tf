@@ -1,7 +1,7 @@
 # mariadb Instance -- mariadb Instance  -- mariadb Instance  -- mariadb Instance
 # mariadb Instance -- mariadb Instance  -- mariadb Instance  -- mariadb Instance
 
-data "template_file" "mysql" {
+data "template_file" "mariadb" {
   template = file(var.mariadb_user_data)
 
   vars     = {
@@ -23,12 +23,12 @@ module "mariadb_instance" {
     assign_public_ip            = true
     ssh_private_key             = var.ssh_private_key
     os_ocid                     = var.centos_ocid
-    user_data                   = base64encode(data.template_file.mysql.rendered)
+    user_data                   = base64encode(data.template_file.mariadb.rendered)
 }
 
 resource "oci_core_network_security_group" "mariadb_network_security_group" {
-    compartment_id         = oci_identity_compartment.tf-compartment.compartment_id
-    vcn_id                 = oci_core_vcn.hipotecario_vcn.id
+    compartment_id              = oci_identity_compartment.tf-compartment.compartment_id
+    vcn_id                      = oci_core_vcn.hipotecario_vcn.id
 }
 
 resource "oci_core_network_security_group_security_rule" "mariadb_sg_ssh_rules" {

@@ -17,8 +17,8 @@ module "postgresql_instance" {
     shape                       = var.postgresql_instance_shape
     display_name                = var.postgresql_instance_display_name
     nsg_ids                     = [oci_core_network_security_group.postgresql_network_security_group.id]
-    subnet_id                   = oci_core_subnet.private_A_subnet.id
-    assign_public_ip            = false
+    subnet_id                   = oci_core_subnet.public_A_subnet.id
+    assign_public_ip            = true
     ssh_private_key             = var.ssh_private_key
     user_data                   = base64encode(data.template_file.pgsql.rendered)
     os_ocid                     = var.centos_ocid

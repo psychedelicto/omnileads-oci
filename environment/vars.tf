@@ -202,16 +202,20 @@ variable "omlapp_security_group_rtp_src_port_min" {}
 variable "omlapp_security_group_rtp_src_port_max" {}
 
 variable "network_interface" {}
-variable "omlapp_hostname" {}
+#variable "omlapp_hostname" {}
 variable "oml_release" {}
 variable "ami_user" {}
 variable "ami_password" {}
 variable "dialer_user" {}
 variable "dialer_password" {}
 variable "ecctl" {}
+variable "pg_port" {}
 variable "pg_database" {}
 variable "pg_username" {}
 variable "pg_password" {}
+variable "pg_database_name" {}
+variable "pg_database_user" {}
+variable "pg_database_password" {}
 variable "sca" {}
 variable "schedule" {}
 variable "extern_ip" {}

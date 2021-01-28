@@ -23,7 +23,7 @@ sed -i "s/^timezone =.*/timezone = \'UTC\'/" /var/lib/pgsql/11/data/postgresql.c
 
 echo "******************** edit pg_hba.conf ***************************"
 echo "******************** edit pg_hba.conf ***************************"
-echo "host    all             all             ${private_subnet}/24            md5" >> /var/lib/pgsql/11/data/pg_hba.conf
+echo "host    all             all             ${private_subnet}            md5" >> /var/lib/pgsql/11/data/pg_hba.conf
 
 echo "******************** postgres user password ***************************"
 echo "******************** postgres user password ***************************"

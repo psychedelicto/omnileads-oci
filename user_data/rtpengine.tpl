@@ -1,11 +1,17 @@
 #!/bin/bash
 
+echo "************************* yum update and install kernel-devel ***********************************"
+echo "************************* yum update and install kernel-devel ***********************************"
 yum update -y && yum install kernel-devel -y
 
+echo "******************** prereq selinux and firewalld ***************************"
+echo "******************** prereq selinux and firewalld ***************************"
 sed -i 's/^SELINUX=.*/SELINUX=disabled/' /etc/sysconfig/selinux
 sed -i 's/^SELINUX=.*/SELINUX=disabled/' /etc/selinux/config
 systemctl disable firewalld
 
+echo "******************** yum install rtpengine ***************************"
+echo "******************** yum install rtpwngine ***************************"
 yum install epel-release -y && yum install -y curl libpcap hiredis xmlrpc-c-client json-glib libevent http://freetech.com.ar/rpms/rtpengine-5.5.3.1-1.x86_64.rpm vim
 
 echo "************************* Discover IPs ***********************************"

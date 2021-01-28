@@ -2,12 +2,6 @@
 
 HOST_DIR=/opt/omnileads/asterisk/var/spool/asterisk/monitor
 
-echo "******************** prereq selinux and firewalld ***************************"
-echo "******************** prereq selinux and firewalld ***************************"
-sed -i 's/^SELINUX=.*/SELINUX=disabled/' /etc/sysconfig/selinux
-sed -i 's/^SELINUX=.*/SELINUX=disabled/' /etc/selinux/config
-systemctl disable firewalld
-
 echo "******************** yum update and install prereq ***************************"
 echo "******************** yum update and install prereq ***************************"
 yum update -y
@@ -18,9 +12,11 @@ echo "******************** disabled selinux ***************************"
 sed -i 's/^SELINUX=.*/SELINUX=disabled/' /etc/sysconfig/selinux
 sed -i 's/^SELINUX=.*/SELINUX=disabled/' /etc/selinux/config
 
-echo "******************** set hostname ***************************"
-echo "******************** set hostname ***************************"
+PRIVATE_IPV4=$(curl -s http://169.254.169.254/metadata/v1/interfaces/private/0/ipv4/address)
 
+echo "******************** set hostname ***************************"
+echo "******************** set hostname ***************************"
+hostnamectl set-hostname "${omlapp_hostname}"
 
 echo "************************* clonando el repositorio  de omnileads ***********************************"
 echo "************************* clonando el repositorio  de omnileads ***********************************"
@@ -38,13 +34,14 @@ python deploy/vagrant/edit_inventory.py --self_hosted=yes \
   --dialer_host=${dialer_host} \
   --mysql_host=${mysql_host} \
   --ecctl=${ecctl} \
-  --postgres_port=${pg_port} \
+  --postgres_host=${pg_host} \
+  #--postgres_port=${pg_port} \
   --postgres_database=${pg_database} \
   --postgres_user=${pg_username} \
   --postgres_password=${pg_password} \
-  --default_postgres_database=${pg_default_database} \
-  --default_postgres_user=${pg_default_user} \
-  --default_postgres_password=${pg_default_password} \
+  #--default_postgres_database=${pg_default_database} \
+  #--default_postgres_user=${pg_default_user} \
+  #--default_postgres_password=${pg_default_password} \
   --redis_host=${redis_host} \
   --rtpengine_host=${rtpengine_host} \
   --sca=${sca} \
@@ -68,6 +65,7 @@ echo "SSLMode       = require" >> /etc/odbc.ini
 
 #echo "******************************* NFS fstab *************************************"
 #echo "******************************* NFS fstab *************************************"
+#echo ""${nfs_recordings_ip}":$HOST_DIR    $HOST_DIR   nfs auto,nofail,noatime,nolock,intr,tcp,actimeo=1800 0 0" >> /etc/fstab
 
 
 echo "***************************** Instalando sngrep ***************************************"
@@ -127,6 +125,8 @@ chmod +x /opt/omnileads/bin/mover_audios.sh
 
 #echo "****************************** mount NFS for asign omnileads owner ************************************"
 #echo "****************************** mount NFS for asign omnileads owner ************************************"
+#mount -t nfs "${nfs_recordings_ip}":$HOST_DIR $HOST_DIR
+#chown omnileads.omnileads -R $HOST_DIR
 
 echo "******************************** [asterisk] Tercero: seteando el cron para el movimiento de grabaciones *************************************************"
 echo "******************************** [asterisk] Tercero: seteando el cron para el movimiento de grabaciones *************************************************"
