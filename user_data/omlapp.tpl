@@ -61,10 +61,6 @@ if [ -d /usr/local/queuemetrics/ ]; then
   systemctl stop mariadb && systemctl disable mariadb
 fi
 
-echo "******************** digitalocean requiere SSL to connect PGSQL ************************"
-echo "******************** digitalocean requiere SSL to connect PGSQL ************************"
-echo "SSLMode       = require" >> /etc/odbc.ini
-
 
 #echo "******************************* NFS fstab *************************************"
 #echo "******************************* NFS fstab *************************************"

@@ -7,7 +7,7 @@ module "rtpengine_instance" {
     availability_domain         = var.rtpengine_instance_availability_domain
     shape                       = var.rtpengine_instance_shape
     display_name                = var.rtpengine_instance_display_name
-    fqdn              = var.rtpengine_instance_display_name
+    fqdn                        = var.rtpengine_instance_display_name
     nsg_ids                     = [oci_core_network_security_group.rtpengine_network_security_group.id]
     subnet_id                   = oci_core_subnet.public_A_subnet.id
     assign_public_ip            = true
