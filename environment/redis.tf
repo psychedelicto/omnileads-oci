@@ -7,9 +7,10 @@ module "redis_instance" {
     availability_domain         = var.redis_instance_availability_domain
     shape                       = var.redis_instance_shape
     display_name                = var.redis_instance_display_name
+    fqdn                = var.redis_instance_display_name
     nsg_ids                     = [oci_core_network_security_group.redis_network_security_group.id]
-    subnet_id                   = oci_core_subnet.public_A_subnet.id
-    assign_public_ip            = true
+    subnet_id                   = oci_core_subnet.private_A_subnet.id
+    assign_public_ip            = false
     ssh_private_key             = var.ssh_private_key
     user_data                   = base64encode(file(var.redis_user_data))
     os_ocid                     = var.ubuntu_ocid

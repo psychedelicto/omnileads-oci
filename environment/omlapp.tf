@@ -43,6 +43,7 @@ module "omlapp_instance" {
     availability_domain         = var.omlapp_instance_availability_domain
     shape                       = var.omlapp_instance_shape
     display_name                = var.omlapp_instance_display_name
+    fqdn                        = var.omlapp_instance_display_name
     nsg_ids                     = [oci_core_network_security_group.omlapp_network_security_group.id]
     subnet_id                   = oci_core_subnet.public_A_subnet.id
     assign_public_ip            = true
@@ -77,7 +78,7 @@ resource "oci_core_network_security_group_security_rule" "omlapp_sg_ssh_rules" {
     }
 }
 
-resource "oci_core_network_security_group_security_rule" "omlapp_sg_rtp_rules" {
+resource "oci_core_network_security_group_security_rule" "omlapp_sg_https_rules" {
     network_security_group_id   = oci_core_network_security_group.omlapp_network_security_group.id
     direction                   = "INGRESS"
     protocol                    = "6"
@@ -88,6 +89,44 @@ resource "oci_core_network_security_group_security_rule" "omlapp_sg_rtp_rules" {
         destination_port_range {
             min = var.omlapp_security_group_rtp_dst_port_min
             max = var.omlapp_security_group_rtp_dst_port_max
+        }
+        source_port_range {
+            min = var.omlapp_security_group_rtp_src_port_min
+            max = var.omlapp_security_group_rtp_src_port_max
+        }
+    }
+}
+
+resource "oci_core_network_security_group_security_rule" "omlapp_sg_sip_rules" {
+    network_security_group_id   = oci_core_network_security_group.omlapp_network_security_group.id
+    direction                   = "INGRESS"
+    protocol                    = "6"
+    description                 = "SIP"
+    source                      = var.omlapp_security_group_rtp_source
+    tcp_options {
+
+        destination_port_range {
+            min = "5060"
+            max = "5162"
+        }
+        source_port_range {
+            min = var.omlapp_security_group_rtp_src_port_min
+            max = var.omlapp_security_group_rtp_src_port_max
+        }
+    }
+}
+
+resource "oci_core_network_security_group_security_rule" "omlapp_sg_rtp_rules" {
+    network_security_group_id   = oci_core_network_security_group.omlapp_network_security_group.id
+    direction                   = "INGRESS"
+    protocol                    = "17"
+    description                 = "RTP"
+    source                      = var.omlapp_security_group_rtp_source
+    udp_options {
+
+        destination_port_range {
+            min = "20000"
+            max = "50000"
         }
         source_port_range {
             min = var.omlapp_security_group_rtp_src_port_min

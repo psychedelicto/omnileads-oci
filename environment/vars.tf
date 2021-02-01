@@ -26,6 +26,11 @@ variable "subnet_public_cidr_block"{}
 variable "subnet_private_cidr_block"{}
 variable "vcn_dns_label" {}
 
+# variable "security_list_display_name" {}
+# variable "security_list_egress_security_rules_destination" {}
+# variable "security_list_egress_security_rules_protocol" {}
+
+
 # OPERATIVE SYSTEM INSTANCES -- OPERATIVE SYSTEM INSTANCES -- OPERATIVE SYSTEM INSTANCES
 variable "centos_ocid" {
   default = "ocid1.image.oc1.sa-santiago-1.aaaaaaaajkao23nrjfubajeojaxsc6gp3gvxqr7quif4nfzb7e7qivetze2q"

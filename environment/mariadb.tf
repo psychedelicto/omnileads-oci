@@ -18,9 +18,10 @@ module "mariadb_instance" {
     availability_domain         = var.mariadb_instance_availability_domain
     shape                       = var.mariadb_instance_shape
     display_name                = var.mariadb_instance_display_name
+    fqdn                        = var.mariadb_instance_display_name
     nsg_ids                     = [oci_core_network_security_group.mariadb_network_security_group.id]
-    subnet_id                   = oci_core_subnet.public_A_subnet.id
-    assign_public_ip            = true
+    subnet_id                   = oci_core_subnet.private_A_subnet.id
+    assign_public_ip            = false
     ssh_private_key             = var.ssh_private_key
     os_ocid                     = var.centos_ocid
     user_data                   = base64encode(data.template_file.mariadb.rendered)

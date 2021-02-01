@@ -6,7 +6,7 @@ data "template_file" "dialer" {
   template = file(var.dialer_user_data)
 
   vars = {
-    mysql_host                = module.mariadb_instance.ipv4_address_private
+    mysql_host                = "mysql.private.hipotecario.oraclevcn.com"
     mysql_database            = var.dialer_database
     mysql_username            = var.dialer_database_username
     mysql_password            = var.dialer_database_password
@@ -20,9 +20,10 @@ module "dialer_instance" {
     availability_domain         = var.dialer_instance_availability_domain
     shape                       = var.dialer_instance_shape
     display_name                = var.dialer_instance_display_name
+    fqdn                        = var.dialer_instance_display_name
     nsg_ids                     = [oci_core_network_security_group.dialer_network_security_group.id]
-    subnet_id                   = oci_core_subnet.public_A_subnet.id
-    assign_public_ip            = true
+    subnet_id                   = oci_core_subnet.private_A_subnet.id
+    assign_public_ip            = false
     ssh_private_key             = var.ssh_private_key
     os_ocid                     = var.centos_ocid
     user_data                   = base64encode(data.template_file.dialer.rendered)

@@ -35,8 +35,8 @@ rtpengine_security_group_ssh_src_port_min = "1024"
 rtpengine_security_group_ssh_src_port_max = "65534"
 
 rtpengine_security_group_rtp_source = "0.0.0.0/0"
-rtpengine_security_group_rtp_dst_port_min = "10000"
-rtpengine_security_group_rtp_dst_port_max = "60000"
+rtpengine_security_group_rtp_dst_port_min = "20000"
+rtpengine_security_group_rtp_dst_port_max = "50000"
 rtpengine_security_group_rtp_src_port_min = "1024"
 rtpengine_security_group_rtp_src_port_max = "65534"
 
@@ -138,8 +138,8 @@ omlapp_security_group_ssh_src_port_min = "1024"
 omlapp_security_group_ssh_src_port_max = "65534"
 
 omlapp_security_group_rtp_source = "0.0.0.0/0"
-omlapp_security_group_rtp_dst_port_min = "5432"
-omlapp_security_group_rtp_dst_port_max = "5432"
+omlapp_security_group_rtp_dst_port_min = "443"
+omlapp_security_group_rtp_dst_port_max = "443"
 omlapp_security_group_rtp_src_port_min = "1024"
 omlapp_security_group_rtp_src_port_max = "65534"
 

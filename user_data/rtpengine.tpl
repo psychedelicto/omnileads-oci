@@ -20,7 +20,7 @@ PRIVATE_IPV4=$(curl -H "Authorization: Bearer Oracle" -L http://169.254.169.254/
 PUBLIC_IPV4=$(curl http://ipinfo.io/ip)
 echo "public $PUBLIC_IPV4 private $PRIVATE_IPV4 are the IPs"
 
-echo "OPTIONS="-i $PUBLIC_IPV4  -o 60 -a 3600 -d 30 -s 120 -n $PRIVATE_IPV4:22222 -m 20000 -M 50000 -L 7 --log-facility=local1""  > /etc/rtpengine-config.conf
+echo "OPTIONS="-i $PRIVATE_IPV4!$PUBLIC_IPV4  -o 60 -a 3600 -d 30 -s 120 -n $PRIVATE_IPV4:22222 -m 20000 -M 50000 -L 7 --log-facility=local1""  > /etc/rtpengine-config.conf
 
 echo "************************* Enable and Start RTPENGINE ***********************************"
 echo "************************* Enable and Start RTPENGINE ***********************************"
