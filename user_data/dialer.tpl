@@ -36,5 +36,4 @@ pwd.defaultLevel=1
 pwd.minAllowedLevel=1
 EOF
 
-
 reboot
