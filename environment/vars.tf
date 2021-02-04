@@ -26,6 +26,9 @@ variable "subnet_public_cidr_block"{}
 variable "subnet_private_cidr_block"{}
 variable "vcn_dns_label" {}
 
+variable "dns_zone_name" {}
+variable "dns_fqdn" {}
+
 # variable "security_list_display_name" {}
 # variable "security_list_egress_security_rules_destination" {}
 # variable "security_list_egress_security_rules_protocol" {}

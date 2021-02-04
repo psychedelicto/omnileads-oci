@@ -21,6 +21,8 @@ subnet_private_cidr_block = "10.72.10.0/24"
 
 ssh_authorized_keys_file = "~/.ssh/id_rsa.pub"
 
+dns_zone_name = "omnileads.cloud"
+dns_fqdn = "hipotecario.omnileads.cloud"
 
 # rtpengine instance -- rtpengine instance -- rtpengine instance
 # rtpengine instance -- rtpengine instance -- rtpengine instance
