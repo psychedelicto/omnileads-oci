@@ -25,6 +25,8 @@ data "template_file" "omlapp" {
   redis_host                    = module.redis_instance.ipv4_address_private
   dialer_host                   = module.dialer_instance.ipv4_address_private
   mysql_host                    = module.mariadb_instance.ipv4_address_private
+  websocket_host                = var.websocket_host
+  websocket_port                = var.websocket_port
   sca                           = var.sca
   schedule                      = var.schedule
   extern_ip                     = var.extern_ip

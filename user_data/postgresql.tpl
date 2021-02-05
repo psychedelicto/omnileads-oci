@@ -8,9 +8,9 @@ systemctl disable firewalld
 
 echo "******************** yum tasks ***************************"
 echo "******************** yum tasks ***************************"
-yum update -y
-rpm -Uvh https://yum.postgresql.org/11/redhat/rhel-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm
-yum install -y postgresql11-server postgresql11 postgresql11-plperl postgresql11-contrib postgresql11-odbc vim
+#yum update -y
+yum install -y https://yum.postgresql.org/11/redhat/rhel-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm  && yum install -y \
+postgresql11-server postgresql11 postgresql11-plperl postgresql11-contrib postgresql11-odbc vim
 
 echo "******************** DB initialization ***************************"
 echo "******************** DB initialization ***************************"
@@ -24,13 +24,16 @@ sed -i "s/^timezone =.*/timezone = \'UTC\'/" /var/lib/pgsql/11/data/postgresql.c
 echo "******************** edit pg_hba.conf ***************************"
 echo "******************** edit pg_hba.conf ***************************"
 echo "host    all             all             ${private_subnet}            md5" >> /var/lib/pgsql/11/data/pg_hba.conf
-
-echo "******************** postgres user password ***************************"
-echo "******************** postgres user password ***************************"
-sudo -u postgres psql -c "ALTER USER postgres WITH PASSWORD '${postgres_password}';"
+echo "host    all             all             ${public_subnet}             md5" >> /var/lib/pgsql/11/data/pg_hba.conf
 
 echo "******************** enable and start postgres ***************************"
 echo "******************** enable and start postgres ***************************"
 systemctl enable postgresql-11 && systemctl start postgresql-11
 
+echo "******************** postgres user password ***************************"
+echo "******************** postgres user password ***************************"
+sudo -u postgres psql -c "ALTER USER postgres WITH PASSWORD '${postgres_password}';"
+
+echo "******************** reboot now ***************************"
+echo "******************** reboot now ***************************"
 reboot

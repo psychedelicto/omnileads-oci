@@ -13,20 +13,15 @@ echo "******************** yum update and install prereq ***********************
 yum update -y
 yum install git nfs-utils -y
 
-echo "******************** disabled selinux ***************************"
-echo "******************** disabled selinux ***************************"
-sed -i 's/^SELINUX=.*/SELINUX=disabled/' /etc/sysconfig/selinux
-sed -i 's/^SELINUX=.*/SELINUX=disabled/' /etc/selinux/config
-
-echo "******************** set hostname ***************************"
-echo "******************** set hostname ***************************"
-
-
 echo "************************* clonando el repositorio  de omnileads ***********************************"
 echo "************************* clonando el repositorio  de omnileads ***********************************"
 cd /var/tmp
 git clone https://gitlab.com/omnileads/ominicontacto.git
 cd ominicontacto && git checkout ${omnileads_release}
+
+echo "********************************************* inventory websocket vars *******************************************"
+echo "********************************************* inventory websocket vars *******************************************"
+sed -i 's/websocket_host=websockets/#websocket_host=/' /var/tmp/ominicontacto/deploy/ansible/inventory
 
 echo "********************************************* inventory setting *******************************************"
 echo "********************************************* inventory setting *******************************************"
@@ -38,6 +33,7 @@ python deploy/vagrant/edit_inventory.py --self_hosted=yes \
   --dialer_host=${dialer_host} \
   --mysql_host=${mysql_host} \
   --ecctl=${ecctl} \
+  --postgres_host=${pg_host} \
   --postgres_port=${pg_port} \
   --postgres_database=${pg_database} \
   --postgres_user=${pg_username} \
@@ -47,6 +43,8 @@ python deploy/vagrant/edit_inventory.py --self_hosted=yes \
   --default_postgres_password=${pg_default_password} \
   --redis_host=${redis_host} \
   --rtpengine_host=${rtpengine_host} \
+  --websocket_host=${websocket_host} \
+  --websocket_port=${websocket_port} \
   --sca=${sca} \
   --schedule=${schedule} \
   --extern_ip=${extern_ip} \

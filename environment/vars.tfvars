@@ -7,14 +7,14 @@ private_key_path = "~/.oci/oci_api_key.pem"
 ssh_public_key = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAxzCcoJoUgoj3ojDNmZ5zz4Kkkjm4PYyb/3gPXZ3LV0SOfSCVfeRbTk+C5d78reKxEQWX9hLfUJocA6TASA5vGOxqrF82qXON+1OSWlOR/+pk3NXNePCXnGjoS2InqEvfRiNh22EOXTvn0Na1AaiM6spDsrUkg2A1trmVagkWD4tHPe50Ju/FmzcfmdyAbiVN59dYOzMLWO7eFcvlPqY28DvV8OcMUTYA9ljZECsbxl+nYdHUYfYuT4lkObQyNJAlQbl+TjWBjna6ydxKfVKp50HLVhDXhffbhrlzcNtuSGeOnYq6gocLJ9/re3I8VPpXM+YFYXeYlduu3QcoxqcpFwIDAQAB"
 ssh_private_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDNVAC8P2ExZZzw0EQB6EJ/anI60VJXCfPYL2Q2pXQDAfNUz55ZeFiWXNvSZtvhjWv9nJIfIWJxNpZibQn8O26pp1PgEUcu5gB8/5qpB6LeRICjpeKBN61z01R+ro3KSSd7qKxFb6IsdymPBdaMB+KCrEbdDCtIHYj15DKBreprLZFmmmJMSR3grSQaW3p7hyS9oDB8KXu3kg5yO9A+jUhvNMAHezxnUWKF1CpmVy1eMcrzCQolCt2OxcJu+TIjSaR7pqgyoQnva0VYvv9bvMvOAMbbazjzHO4dLW4PFwnpvlpxHyj2JmjUmpZZCKQr4biNtS96E5h+mKzoo3OimeTjN8RCsyAwc29suN/0fr0pLiVKtHVUOmOUGQ1whpQrh3js9nXUB9WY2Iyp7KCfNiLTZY4l/z40aJ0HmK39SXX9E5QkpQsdytvCMSudegR9nMrqZHkqxTw0IBwLO+e7pak1HE+tZgDYcmmZmI2bVHpHI3sjdUpvyZKVmpLxhl4XS3k="
 
-customer_name = "konecta"
-vcn_display_name = "hipotecario"
-vcn_dns_label = "hipotecario"
+customer_name = "fabian"
+vcn_display_name = "fabian"
+vcn_dns_label = "fabian"
 vcn_cidr     = "10.72.0.0/16"
 
 
-internet_gateway_display_name = "hipotecario"
-nat_gateway_display_name = "hipotecario"
+internet_gateway_display_name = "fabian"
+nat_gateway_display_name = "fabian"
 
 subnet_public_cidr_block = "10.72.1.0/24"
 subnet_private_cidr_block = "10.72.10.0/24"
@@ -22,7 +22,7 @@ subnet_private_cidr_block = "10.72.10.0/24"
 ssh_authorized_keys_file = "~/.ssh/id_rsa.pub"
 
 dns_zone_name = "omnileads.cloud"
-dns_fqdn = "hipotecario.omnileads.cloud"
+dns_fqdn = "fabian.omnileads.cloud"
 
 # rtpengine instance -- rtpengine instance -- rtpengine instance
 # rtpengine instance -- rtpengine instance -- rtpengine instance
@@ -160,6 +160,8 @@ pg_port = "5432"
 pg_database_name = "postgres"
 pg_database_user = "postgres"
 pg_database_password = "admin123"
+websocket_host = "localhost"
+websocket_port = "8000"
 sca = "1800"
 schedule = "agenda"
 extern_ip = "auto"

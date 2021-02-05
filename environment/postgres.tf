@@ -4,7 +4,8 @@ data "template_file" "pgsql" {
   template = file(var.postgresql_user_data)
 
   vars = {
-    private_subnet              = var.vcn_cidr
+    private_subnet              = module.networking.private_subnet_cidr
+    public_subnet               = module.networking.public_subnet_cidr
     postgres_password           = var.pg_password
     }
 }

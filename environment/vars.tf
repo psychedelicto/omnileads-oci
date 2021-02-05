@@ -224,6 +224,8 @@ variable "pg_password" {}
 variable "pg_database_name" {}
 variable "pg_database_user" {}
 variable "pg_database_password" {}
+variable "websocket_host" {}
+variable "websocket_port" {}
 variable "sca" {}
 variable "schedule" {}
 variable "extern_ip" {}
